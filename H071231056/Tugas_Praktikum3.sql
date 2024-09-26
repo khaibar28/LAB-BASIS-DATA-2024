@@ -83,9 +83,6 @@ INSERT INTO members (first_name,last_name, email, phone_number, join_date, membe
     ('Bob','Williams', 'bob.williams@example.com', '3213214321', '2023-06-20', 'Premium');
 
 
--- untuk latihan
-INSERT INTO members (first_name,last_name, email, phone_number, join_date, membership_type) VALUES
-    ('Pangeran','dan Ekyy', 'resky@example.com', '3213214321', '2023-06-20', 'Premium');
 UPDATE members
 SET full_name = CONCAT(first_name, ' ', last_name);
 
@@ -107,17 +104,12 @@ INSERT INTO borrowings (member_id, book_id, borrow_date, return_date) VALUES
     (2, 3, '2023-09-08', NULL),          
     (3, 2, '2023-09-10', NULL);          
 
--- untuk latihan
-INSERT INTO borrowings (member_id, book_id, borrow_date, return_date) VALUES       
-    (4, 2, '2023-09-10', NULL); 
     
 UPDATE borrowings
 SET member_name = (SELECT full_name FROM members WHERE borrowings.member_id = members.id),
 	 book_title =  (SELECT title FROM books WHERE borrowings.book_id = books.id);
 
 SELECT * FROM borrowings;
-
-
 
 
 -- nomor 2
@@ -183,14 +175,16 @@ WHERE id IN (
     GROUP BY member_id
     HAVING COUNT(*) = 1
 ) 
-AND membership_type = 'Premium'; -- nama kita sayang
--- lalu hapus yang null
+AND membership_type = 'Premium'; 
+	
 DELETE FROM borrowings
 WHERE return_date IS NULL;
+	
 SELECT full_name AS 'Full Name', email Email, phone_number AS 'Phone Number', join_date AS 'Join Date', membership_type AS 'Membership Type' FROM members;
 SELECT member_name AS 'Member Name', book_title AS 'Book Title',borrow_date AS 'Borrow Date', return_date AS 'Return Date' FROM borrowings;
 
 
+	
 
 -- final
 SELECT NAME AS 'Name', nationality Nationality FROM authors;
